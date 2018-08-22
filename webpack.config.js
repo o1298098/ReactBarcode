@@ -3,7 +3,8 @@ const Webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin=require("extract-text-webpack-plugin");
-
+var proxy = require('http-proxy-middleware')
+const context = [`/k3cloud/*`]
 
 module.exports = {   
     entry:'./src/index.js',
@@ -37,7 +38,16 @@ module.exports = {
         host: '192.168.1.52',
         port: 8090,
         open: true,
-        hot: true
+        hot: true,
+        proxy:[
+          {
+              context: context,
+              target: 'http://192.168.1.52',
+              secure: false,
+              changeOrigin: true
+              //pathRewrite: {'^/api': '/api/Login'},
+          }   
+        ]
       },
     plugins:[
         require('autoprefixer'),

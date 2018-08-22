@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import { render } from 'react-dom';
-import MaterialList  from "./components/MaterialList";
 import InfoCase from "./components/InfoCase"
 import device from 'current-device'
 if(device.type=="mobile")
@@ -11,9 +10,7 @@ else
 {
     require('./style/main.css');
 }
-render(<div>
-    <InfoCase/>
-    <MaterialList/>
-    </div>,
+render(
+    <InfoCase/>,
     document.querySelector("#app")
     );

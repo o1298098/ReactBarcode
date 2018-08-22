@@ -5,20 +5,15 @@ class MaterialList extends Component {
         super(props);
         this.state = {
             mtxt: "",
-            material: [
-                { "name": "S原汁机", "qty": "4", "scantime": 0, "serialno": "1" },
-                { "name": "S杯盖", "qty": "5", "scantime": 0, "serialno": "2" },
-                { "name": "S刀盖", "qty": "6", "scantime": 0, "serialno": "3" },
-                { "name": "绞肉机", "qty": "7", "scantime": 0, "serialno": "HSM30018411027" }
-            ],
+            material: this.props.source,
         }
     }
     ScanMaterialCode(e) {
         if (e.which === 13) {
             var t = document.getElementById("materialinput")
-            var items=this.state.material;  
+            var items=this.props.source;  
             items.forEach(function(item){
-                if (item.serialno === t.value)
+                if (item.fnumber === t.value)
                 item.scantime++;
             })          
             this.setState({
@@ -30,7 +25,11 @@ class MaterialList extends Component {
     }
     render() {
         const materialtextstyle = {
-            border: "none"
+            "border": "none"
+        }
+        const materialulstyle={
+            "height":350,
+            "overflow":"auto"
         }
         return (
             <div class="container-fluid">
@@ -40,13 +39,9 @@ class MaterialList extends Component {
                             <h3 class="panel-title">物料列表</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="col-xs-12 col-md-6">
-                                <ul class="list-group">
-                                    <li class="list-group-item list-group-item-success">
-                                        <span class="badge">2</span>S原汁机(2)</li>
-                                    <li class="list-group-item">
-                                        <span class="badge">1</span>S刀盖(3)</li>
-                                    {this.state.material.map((item, index) => <MaterialItem name={item.name} qty={item.qty} scantime={item.scantime} key={index} />)}
+                            <div class="col-xs-12 col-md-6" style={materialulstyle}>
+                                <ul class="list-group">                                   
+                                    {this.props.source.map((item, index) => <MaterialItem name={item.fname} qty={item.qty} scantime={item.scantime} key={index} />)}
                                 </ul>
                             </div>
                         </div>
@@ -54,7 +49,7 @@ class MaterialList extends Component {
                 </div>
                 <div class="row">
                     <button type="button" class="btn btn-primary btn-lg btn-block">打包完成</button>
-                    <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e)}></input>
+                    <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e) } onfocus="this.blur()"></input>
                 </div>
             </div>
         )
@@ -65,8 +60,11 @@ class MaterialItem extends Component {
         super(props);
     }
     render() {
+        const fontstyle = {
+            "font-size":20,
+        }
         return (
-            <li class={this.props.scantime == this.props.qty ? "list-group-item list-group-item-success" : "list-group-item"}>
+            <li class={this.props.scantime == this.props.qty ? "list-group-item list-group-item-success" : "list-group-item"} style={fontstyle}>
                 <span class="badge">{this.props.scantime}</span>{this.props.name}({this.props.qty})</li>
         );
     }
