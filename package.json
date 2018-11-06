@@ -1,0 +1,27 @@
+{
+  "name": "react_barcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "react-dom": "^16.6.0",
+    "redux": "^4.0.1",
+    "react": "^16.6.0",
+    "webpack": "^4.25.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/o1298098/ReactBarcode.git"
+  },
+  "author": "o1298098",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/o1298098/ReactBarcode/issues"
+  },
+  "homepage": "https://github.com/o1298098/ReactBarcode#readme"
+}
