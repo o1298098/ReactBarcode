@@ -42,7 +42,7 @@ module.exports = {
         proxy:[
           {
               context: context,
-              target: 'http://192.168.1.52',
+              target: 'http://canda.f3322.net:8003',
               secure: false,
               changeOrigin: true
               //pathRewrite: {'^/api': '/api/Login'},

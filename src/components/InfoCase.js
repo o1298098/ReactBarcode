@@ -8,7 +8,9 @@ class InfoCase extends Component {
         }
     }
     componentDidMount() {
-        this.input.focus();
+       /* this.input.focus();*/
+        /*document.getElementById("logno").focus();*/
+      
     }
 
     newGuid() {
@@ -25,13 +27,12 @@ class InfoCase extends Component {
         if (e.which === 13) {
             var l = document.getElementById("logno");
             var t = document.getElementById("materialinput");
-            t.focus();
             const xhr = new XMLHttpRequest();
             var data = {
                 format: 1,
                 useragent: "ApiClient",
                 rid: "",
-                parameters: "[\"5ab05fc34e03d1\",\"" + l.value + "\"]",/*630601266464*/
+                parameters: "[\"59a12c8ba824d2\",\"" + l.value + "\"]",/*630601266464*/
                 timestamp: "",
                 v: "1.0"
             };
@@ -54,7 +55,9 @@ class InfoCase extends Component {
                         this.setState({
                             material: gotServices
                         });
-                        this.input.readOnly = true;
+                        this.input.readOnly = true; 
+                        t.focus();
+                       
                     }
                     else
                     {
@@ -79,16 +82,16 @@ class InfoCase extends Component {
     render() {
         return (
             <div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">订单信息</h3>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">订单信息</h3>
                             </div>
 
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">物流单号</span>
-                                <input type="text" class="form-control" placeholder="物流单号" aria-describedby="basic-addon1" id="logno" ref={(input) => this.input = input} onKeyPress={(e) => this.onKeyPress(e)} />
+                            <div className="input-group">
+                                <span className="input-group-addon" id="basic-addon1">物流单号</span>
+                                <input type="text" className="form-control" placeholder="物流单号" aria-describedby="basic-addon1" id="logno" ref={(input) => this.input = input} onKeyPress={(e) => this.onKeyPress(e)} autoFocus/>
                             </div>
                         </div>
                     </div>

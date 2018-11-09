@@ -6,50 +6,85 @@ class MaterialList extends Component {
         this.state = {
             mtxt: "",
             material: this.props.source,
+            btnstate: true,
         }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            material: nextProps.source
+        })
+      }
+    onListClick(e) {
+        var l = document.getElementById("logno");
+        var t = document.getElementById("materialinput");
+        if (JSON.stringify(this.props.source) === '[]')
+            l.focus();
+        else
+            t.focus();
+
+    }
+    onSubmitClick(e){
+        //待添加接口
+        this.setState({
+            material:[],
+            btnstate: true,
+        });
+        var l = document.getElementById("logno");
+        l.readOnly = false;
+        l.value="";
+        l.placeholder="成功";
+        l.focus();
+
     }
     ScanMaterialCode(e) {
         if (e.which === 13) {
+            let count = 0;
             var t = document.getElementById("materialinput")
-            var items=this.props.source;  
-            items.forEach(function(item){
+            var items = this.props.source;
+            items.forEach(function (item) {
                 if (item.fnumber === t.value)
-                item.scantime++;
-            })          
-            this.setState({
-                material:items
+                    item.scantime++;
+                if (item.qty === item.scantime)
+                    count++;
             })
-            t.value="";
+            this.setState({
+                material: items
+            })
+            t.value = "";
             t.focus();
+            if (items.length === count)
+                this.setState({
+                    btnstate: false
+                })
         }
     }
     render() {
         const materialtextstyle = {
             "border": "none"
         }
-        const materialulstyle={
-            "height":350,
-            "overflow":"auto"
+        const materialulstyle = {
+            "height": 350,
+            "overflow": "auto"
         }
         return (
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">物料列表</h3>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="panel panel-primary">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">物料列表</h3>
                         </div>
-                        <div class="panel-body">
-                            <div class="col-xs-12 col-md-6" style={materialulstyle}>
-                                <ul class="list-group">                                   
-                                    {this.props.source.map((item, index) => <MaterialItem name={item.fname} qty={item.qty} scantime={item.scantime} key={index} />)}
+                        <div className="panel-body" onClick={(e) => this.onListClick(e)}>
+                            <div className="col-xs-12 col-md-6" style={materialulstyle} onClick={(e) => this.onListClick(e)}>
+                                <ul className="list-group">
+                                    {this.state.material.map((item, index) => <MaterialItem name={item.fname} qty={item.qty} scantime={item.scantime} key={index} />)}
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <button type="button" class="btn btn-primary btn-lg btn-block">打包完成</button>
-                    <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e) } onfocus="this.blur()"></input>
+                <div className="row">
+                    <button type="button" className="btn btn-primary btn-lg btn-block" ref={(btn) => this.btn = btn} disabled={this.state.btnstate} onClick={(e) => this.onSubmitClick(e)}>打包完成</button>
+                    <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e)} ></input>
                 </div>
             </div>
         )
@@ -61,11 +96,11 @@ class MaterialItem extends Component {
     }
     render() {
         const fontstyle = {
-            "font-size":20,
+            "fontSize": 20,
         }
         return (
-            <li class={this.props.scantime == this.props.qty ? "list-group-item list-group-item-success" : "list-group-item"} style={fontstyle}>
-                <span class="badge">{this.props.scantime}</span>{this.props.name}({this.props.qty})</li>
+            <li className={this.props.scantime == this.props.qty ? "list-group-item list-group-item-success" : "list-group-item"} style={fontstyle}>
+                <span className="badge">{this.props.scantime}</span>{this.props.name}({this.props.qty})</li>
         );
     }
 }
