@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import MaterialList from "./MaterialList";
+import httpclient from '../js/HttpClient';
+import toastit from 'toastit.js';
 class InfoCase extends Component {
     constructor(props) {
         super(props);
@@ -32,50 +34,45 @@ class InfoCase extends Component {
                 format: 1,
                 useragent: "ApiClient",
                 rid: "",
-                parameters: "[\"59a12c8ba824d2\",\"" + l.value + "\"]",/*630601266464*/
+                parameters: "[\"5b7cd1cd74ef2e\",\"" + l.value + "\"]",/*59a12c8ba824d2,5b7cd1cd74ef2e*/
                 timestamp: "",
                 v: "1.0"
-            };
+            };            
+            this.input.readOnly = true; 
             var myDate = new Date();
             var guid = this.newGuid();
             data.timestamp = myDate.getTime().toString();
             data.rid = guid;
-            var jsontxt = JSON.stringify(data);
-            xhr.open("POST", "/k3cloud/Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.GetPickDeliveryInfo.common.kdsvc", true);
-            xhr.withCredentials = true;
-            xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-            xhr.send(jsontxt);
-
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState != 4) { return; }
-                if (xhr.status == 200) {
-                    
-                    if (xhr.responseText!== '[]'){
-                        let gotServices = JSON.parse(xhr.responseText);
-                        this.setState({
-                            material: gotServices
-                        });
-                        this.input.readOnly = true; 
-                        t.focus();
-                       
-                    }
-                    else
+            var e=this;
+            httpclient.post({
+                url:'/k3cloud/Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.GetPickDeliveryInfo.common.kdsvc',data:data,timeout:5000}
+                ,function(err,result){
+                    if(err===null)
                     {
-                        this.input.value=""; 
-                        this.input.placeholder="系统没有记录"
-                        this.input.focus();
+                        if(JSON.stringify(result)!=='[]')
+                        {
+                            let gotServices = result;
+                            e.setState({
+                                material: gotServices
+                            });
+                            t.focus();
+                        }
+                        else
+                        {
+                            e.input.readOnly = false; 
+                            e.input.value=""; 
+                            toastit('系统没有记录',2000,{fontSize: '18px'});
+                            e.input.focus();
+                        }                       
                     }
-                    /*gotServices.map((item,index)=>{
-                        this.state.material.push(item);
-                    });*/
-                    
-                }
-                else {
-                    console.log("请求失败！");
-                }
-            }
-        }
-        else {
+                    else{
+                        toastit('网络不稳定',2000,{fontSize: '18px'});
+                        e.input.readOnly = false;                        
+                        e.input.value=""; 
+                    }
+                    console.log(result);
+                });
+            
         }
 
     }

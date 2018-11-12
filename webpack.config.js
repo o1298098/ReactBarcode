@@ -3,8 +3,8 @@ const Webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin=require("extract-text-webpack-plugin");
-var proxy = require('http-proxy-middleware')
-const context = [`/k3cloud/*`]
+var proxy = require('http-proxy-middleware');
+const context = [`/k3cloud/*`];
 
 module.exports = {   
     entry:'./src/index.js',
@@ -42,7 +42,7 @@ module.exports = {
         proxy:[
           {
               context: context,
-              target: 'http://canda.f3322.net:8003',
+              target: 'http://192.168.1.52',
               secure: false,
               changeOrigin: true
               //pathRewrite: {'^/api': '/api/Login'},
@@ -53,5 +53,13 @@ module.exports = {
         require('autoprefixer'),
         new HtmlWebpackPlugin({ title: 'App', template: './src/index.html' }),
     ],
-    mode: 'development'
+    mode: 'development',
+    performance: {
+      hints: "warning", 
+      maxAssetSize: 30000000,
+      maxEntrypointSize: 50000000,
+      assetFilter: function(assetFilename) {
+      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');      
+      }
+    }
   };
