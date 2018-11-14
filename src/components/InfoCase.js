@@ -34,7 +34,7 @@ class InfoCase extends Component {
                 format: 1,
                 useragent: "ApiClient",
                 rid: "",
-                parameters: "[\"5b7cd1cd74ef2e\",\"" + l.value + "\"]",/*59a12c8ba824d2,5b7cd1cd74ef2e*/
+                parameters: "[\"59a12c8ba824d2\",\"" + l.value + "\"]",/*59a12c8ba824d2,5b7cd1cd74ef2e*/
                 timestamp: "",
                 v: "1.0"
             };            
@@ -81,12 +81,12 @@ class InfoCase extends Component {
             <div>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="panel panel-primary">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">订单信息</h3>
+                        <div className="mypanel">
+                            <div className="mypanel-heading">
+                                <span className="mypanel-title">订单信息</span>
                             </div>
 
-                            <div className="input-group">
+                            <div className="myinput-group">
                                 <span className="input-group-addon" id="basic-addon1">物流单号</span>
                                 <input type="text" className="form-control" placeholder="物流单号" aria-describedby="basic-addon1" id="logno" ref={(input) => this.input = input} onKeyPress={(e) => this.onKeyPress(e)} autoFocus/>
                             </div>

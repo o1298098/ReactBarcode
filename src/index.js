@@ -10,6 +10,7 @@ else
 {
     require('./style/main.css');
 }*/
+require('./style/main.css');
 render(
     <InfoCase/>,
     document.querySelector("#app")

@@ -43,7 +43,7 @@ class MaterialList extends Component {
             format: 1,
             useragent: "ApiClient",
             rid: "",
-            parameters: "[\"5b7cd1cd74ef2e\",\"kingdee\",\"kd!123456\",2052]",/*59a12c8ba824d2*//*630601229084*/
+            parameters: "[\"59a12c8ba824d2\",\"kingdee\",\"kd!123456\",2052]",/*59a12c8ba824d2*//*630601229084*/
             timestamp: "",
             v: "1.0"
         };
@@ -125,22 +125,24 @@ class MaterialList extends Component {
             "border": "none",
             "color": "transparent",
             "zIndex":-1,
-            "top":"50%",
-            "left":"50%",
-            "position": "absolute"
+            "top":"30%",
+            "left":"30%",
+            "position": "absolute",
+            "backgroundColor":"#dddddd"
         }
         const materialulstyle = {
-            "height": 350,
-            "overflow": "auto"
+            "height": 380,
+            "overflow": "auto",
+            "padding":0
         }
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="panel panel-primary">
-                        <div className="panel-heading">
-                            <h3 className="panel-title">物料列表</h3>
+                    <div className="mypanel panel-primary">
+                        <div className="mypanel-heading">
+                            <span className="mypanel-title">物料列表</span>
                         </div>
-                        <div className="panel-body" onClick={(e) => this.onListClick(e)}>
+                        <div className="mypanel-body" onClick={(e) => this.onListClick(e)}>
                             <div className="col-xs-12 col-md-6" style={materialulstyle} onClick={(e) => this.onListClick(e)}>
                                 <ul className="list-group">
                                     {this.state.material.map((item, index) => <MaterialItem name={item.fname} qty={item.qty} scantime={item.scantime} key={index} />)}
@@ -150,7 +152,7 @@ class MaterialList extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <button type="button" className="btn btn-primary btn-lg btn-block" ref={(btn) => this.btn = btn} disabled={this.state.btnstate} onClick={(e) => this.onSubmitClick(e)}>打包完成</button>
+                    <button type="button" className="submitbtn" ref={(btn) => this.btn = btn} disabled={this.state.btnstate} onClick={(e) => this.onSubmitClick(e)}>打包完成</button>
                     <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e)} ></input>
                 </div>
             </div>
