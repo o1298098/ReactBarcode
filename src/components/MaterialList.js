@@ -95,7 +95,17 @@ class MaterialList extends Component {
             var items = this.state.material;
             items.forEach(function (item) {
                 if (item.fnumber === t.value)
-                    item.scantime++;
+                {
+                    if(item.qty >item.scantime)
+                    {
+                        item.scantime++;
+                    }
+                    else
+                    {
+                        toastit("超出扫描数量",2500,{fontSize: '18px'}) ;
+                    }
+                    
+                }
                 if (item.qty === item.scantime)
                     count++;
             })
