@@ -1,48 +1,57 @@
 body{
-    background-color: #dddddd;
+    background-color: rgb(244,244,244);
 }
-.container
-{
+.container{
     padding-left: 0;
     padding-right: 0;
 }
-.mypanel
-{
+.mypanel{
     margin-bottom: 5px;
 }
-.mypanel-title
-{
+.mypanel-title{
     display: block;
     padding: 8px 0 8px 12px;
     font-size: 14px;
     font-weight: bold;
     color: #7e7e7e;
 }
+.loginbtn{
+    z-index: 1;
+    position: absolute;
+    top: 5px;
+    right: 5%;
+    height: 30px;
+    background-color:rgb(244,244,244);
+    border: none;
+}
+.userico{
+    width: 130px;
+    margin: 50px 0 10px 0;
+    display: inline-block;
+}
 .mypanel-body{
     padding: 0;
 }
-.myinput-group
-{
+.myinput-group{
     position: relative;
     display: table;
     border-collapse: separate;
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+    border: 1px solid #ddd;
 }
-.myinput-group .input-group-addon
-{
+.myinput-group .input-group-addon{
     height: 45px;
     background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 0;
     font-weight: 700;
 }
-.myinput-group .form-control
-{
+.myinput-group .form-control{
     height: 45px;
     border: none;
     border-radius: 0;
 }
-.myinput-group .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
-{
+.myinput-group .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
     background-color:rgb(255, 255, 255);
 }
 .list-group{
@@ -52,10 +61,10 @@ body{
     padding: 15px 15px;
 }
 
-.submitbtn
-{
+.submitbtn{
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+    border: 1px solid #ddd;
     background-color: rgb(255, 255, 255);
-    border:none;
     padding: 10px 16px;
     font-size: 18px;
     border-radius: 0;
@@ -64,5 +73,5 @@ body{
     font-weight:600;
     font-family: inherit;
     height: 45px;
-
+    margin-top: 10px;
 }

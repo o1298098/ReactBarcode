@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MaterialList from "./MaterialList";
 import httpclient from '../js/HttpClient';
 import toastit from 'toastit.js';
+require('../style/toastit.css');
+import '../js/Config.js';
 class InfoCase extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +36,7 @@ class InfoCase extends Component {
                 format: 1,
                 useragent: "ApiClient",
                 rid: "",
-                parameters: "[\"59a12c8ba824d2\",\"" + l.value + "\"]",/*59a12c8ba824d2,5b7cd1cd74ef2e*/
+                parameters: "[\""+global.ServerInfo.datacenterid+"\",\"" + l.value + "\"]",/*59a12c8ba824d2,5b7cd1cd74ef2e*/
                 timestamp: "",
                 v: "1.0"
             };            
@@ -83,7 +85,10 @@ class InfoCase extends Component {
                     <div className="row">
                         <div className="mypanel">
                             <div className="mypanel-heading">
-                                <span className="mypanel-title">订单信息</span>
+                                <span className="mypanel-title">订单信息</span>                                
+                                <button type="button" className="loginbtn" aria-label="right Align" onClick={()=>{this.props.history.push("/login");}}>
+                                <span className="glyphicon glyphicon-user" aria-hidden="true">{localStorage.getItem('user')==null?"未登录":localStorage.getItem('user')}</span>
+                                </button>
                             </div>
 
                             <div className="myinput-group">

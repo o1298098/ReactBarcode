@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { render, findDOMNode } from "react-dom";
 import httpclient from '../js/HttpClient';
 import toastit from 'toastit.js';
-require('../style/toastit.css');
 class MaterialList extends Component {
     constructor(props) {
         super(props);
@@ -10,6 +8,7 @@ class MaterialList extends Component {
             mtxt: "",
             material: this.props.source,
             btnstate: true,
+            btntext:'打包完成'
         }
     }    
     componentWillReceiveProps(nextProps) {
@@ -37,13 +36,15 @@ class MaterialList extends Component {
         return guid;
     }
     onSubmitClick(e) {
-        //待添加接口        
         var l = document.getElementById("logno");
+        this.setState({
+            btntext:'处理中...'
+        });
         var data = {
             format: 1,
             useragent: "ApiClient",
             rid: "",
-            parameters: "[\"59a12c8ba824d2\",\"kingdee\",\"kd!123456\",2052]",/*59a12c8ba824d2*//*630601229084*/
+            parameters: "[\""+global.ServerInfo.datacenterid+"\",\""+global.ServerInfo.user+"\",\""+global.ServerInfo.pwd+"\",2052]",/*59a12c8ba824d2*//*630601229084*/
             timestamp: "",
             v: "1.0"
         };
@@ -85,8 +86,10 @@ class MaterialList extends Component {
                     toastit('网络不稳定',2000,{fontSize: '18px'});
                 }
                    
+                e.setState({
+                    btntext:'打包完成'
                 });
-
+                });
     }
     ScanMaterialCode(e) {
         if (e.which === 13) {
@@ -128,7 +131,7 @@ class MaterialList extends Component {
             "top":"30%",
             "left":"30%",
             "position": "absolute",
-            "backgroundColor":"#dddddd"
+            "backgroundColor":"rgb(244,244,244)"
         }
         const materialulstyle = {
             "height": 380,
@@ -152,7 +155,7 @@ class MaterialList extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <button type="button" className="submitbtn" ref={(btn) => this.btn = btn} disabled={this.state.btnstate} onClick={(e) => this.onSubmitClick(e)}>打包完成</button>
+                    <button type="button" className="submitbtn"  ref={(btn) => this.btn = btn} disabled={this.state.btnstate} onClick={(e) => this.onSubmitClick(e)}>{this.state.btntext}</button>
                     <input type="text" text={this.state.mtxt} id="materialinput" style={materialtextstyle} onKeyPress={(e) => this.ScanMaterialCode(e)} ></input>
                 </div>
             </div>
