@@ -44,7 +44,7 @@ class MaterialList extends Component {
             format: 1,
             useragent: "ApiClient",
             rid: "",
-            parameters: "[\""+global.ServerInfo.datacenterid+"\",\""+global.ServerInfo.user+"\",\""+global.ServerInfo.pwd+"\",2052]",/*59a12c8ba824d2*//*630601229084*/
+            parameters: "[\""+l.value+"\",\""+new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')+"\",\""+localStorage.getItem('userid')+"\"]",/*59a12c8ba824d2*//*630601229084*/
             timestamp: "",
             v: "1.0"
         };
@@ -53,19 +53,14 @@ class MaterialList extends Component {
         data.timestamp = myDate.getTime().toString();
         data.rid = guid;
         var e=this;
-        httpclient.post({
-            url:'/k3cloud/Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc',data:data,timeout:5000}
-            ,function(err,result){
-                console.log(result);
-            });
-            data.parameters=["ECC_DeliveryManagement","CreateOutStock","{\"Parameters\":\"ECC_DeliveryManagement\",\"Model\":{\"FID\":\""+this.state.material[0].FID+"\",\"FIsPicking\":\"true\"}}"];
+       
             httpclient.post({
-                url:'/k3cloud/Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.ExcuteOperation.common.kdsvc',data:data,timeout:5000}
+                url:'/k3cloud/Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2.common.kdsvc',data:data,timeout:5000}
                 ,function(err,result){
                     console.log(result);
                     if(err===null)
                     {
-                    if(result.Result.ResponseStatus.IsSuccess)
+                    if(result!=0)
                     {
                         e.setState({
                             material: [],
